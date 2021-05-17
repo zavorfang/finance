@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block main %}
+    {% if quote %}
+        <div class="row">
+            <div class="col">
+                <h3>A share of {{ quote['name'] }} {{ quote['symbol'] }} costs ${{ quote['price'] | usd }}.</h3>
+            </div>
+        </div>
+
+        <form action="/quote" method="GET">
+            <button class="btn btn-primary" type="submit">Look Up Another Quote</button>
+        </form>
+    {% else %}
+        <form action="/quote" method="post">
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Symbol" type="text">
+            </div>
+            <button class="btn btn-primary" type="submit">Look Up Quote</button>
+        </form>
+    {% endif %}
+{% endblock %}

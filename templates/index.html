@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+    <main class="container p-5" style="text-align: left;">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Name</th>
+                    <th>Shares</th>
+                    <th>Price</th>
+                    <th>TOTAL</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td colspan="4"></td>
+                    <td>${{ round(values['balance']+values['the_bag'], 2) | usd }}</td>
+                </tr>
+            </tfoot>
+            <tbody>
+                {% for row in values['stocks'] %}
+                    {% if row['shares'] > 0 %}
+                    <tr>
+                        <td>{{ row['symbol'] }}</td>
+                        <td>{{ row['name'] }}</td>
+                        <td>{{ row['shares'] }}</td>
+                        <td>{{ row['price'] | usd }}</td>
+                        <td>${{ round(row['price']*row['shares'], 2) | usd }}</td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+                <tr>
+                    <td colspan="4">CASH</td>
+                    <td>${{ round(values['balance'], 2) }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+{% endblock %}

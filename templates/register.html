@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+    <form action="/register" method="post">
+        <div class="form-group">
+            <input autocomplete="off" required="required" minlength="6" autofocus class="form-control" name="username" placeholder="Username" type="text">
+        </div>
+        <div class="form-group">
+            <input class="form-control pass" required="required" minlength="6" name="password" placeholder="Password" type="password">
+        </div>
+        <div class="form-group">
+            <input class="form-control conpass" required="required" minlength="6" name="confirmation" placeholder="Confirm Password" type="password">
+        </div>
+        <div class="row justify-content-center" id="passcheck">
+            <div class="col-lg-4 col-md-6 col-sm-5">
+                <div class="alert alert-danger" role="alert">
+                    passwords do not match
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary submit" disabled type="submit">Register</button>
+    </form>
+    <script>
+        var pass = document.querySelector("input.pass");
+        var conpass = document.querySelector("input.conpass");
+        $("#passcheck").hide();
+
+        function check() {
+            let submit = document.getElementsByClassName("submit");
+            if (pass.value == conpass.value)
+            {
+                submit[0].disabled = false;
+                $("#passcheck").hide(200);
+            }
+            else {
+                $("#passcheck").show(200);
+                submit[0].disabled = true;
+            }
+        }
+
+        pass.addEventListener("focusout", check);
+        pass.addEventListener("change", check);
+        conpass.addEventListener("focusout", check);
+        conpass.addEventListener("change", check);
+
+    </script>
+{% endblock %}
